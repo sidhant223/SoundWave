@@ -1,104 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Netflix India - Watch TV shows, Movies</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="main">
-      <nav>
-        <span><img src="asset/logo.svg" /></span>
-        <div>
-          <button class="btn">English</button>
-          <button class="btn red-sm">Sign In</button>
-        </div>
-      </nav>
-      <div class="box"></div>
-      <div class="hero">
-        <span>Unlimited movies, TV shows and more</span>
-        <span>Starts at ₹149. Cancel at any time.</span>
-        <span
-          >Ready to watch? Enter your email to create or restart your
-          membership..</span>
-          <div class="hero-btns">
-            <input type="text" placeholder="email address">
-            <button class="btn red-btn">Get Started</button>
-          </div>
-        </div>
-      </div>
-     </div>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SoundWave — Music for Everyone</title>
 
-     <div class="curved-black-container">Trending Now 
-      <div class="Trending-Now">
-        <div class="First"></div>
-        <div class="Second"></div>
-        <div class="Third"></div>
-        <div class="Fourth"></div>
-        <div class="Fifth"></div>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     MOBILE OVERLAY (closes sidebar on tap)
+     ════════════════════════════════════════ -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ════════════════════════════════════════
+     APP WRAPPER
+     ════════════════════════════════════════ -->
+<div class="app">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Close button (visible on mobile) -->
+    <button class="sb-close" id="sbClose" aria-label="Close sidebar">
+      <svg viewBox="0 0 24 24" width="13" height="13"
+           fill="none" stroke="currentColor"
+           stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6"  x2="6"  y2="18"/>
+        <line x1="6"  y1="6"  x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Top section: logo + nav + library heading -->
+    <div class="sb-top">
+
+      <!-- Logo -->
+      <a class="logo" href="#">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"/>
+          </svg>
+        </div>
+        <span class="logo-name">Sound<em>Wave</em></span>
+      </a>
+
+      <!-- Navigation -->
+      <ul class="nav">
+        <li class="active">
+          <svg viewBox="0 0 24 24">
+            <path d="M13.5 1.515a3 3 0 0 0-3 0L3 5.845a2 2 0 0 0-1 1.732V21
+                     a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6h4v6a1 1 0 0 0 1 1h6
+                     a1 1 0 0 0 1-1V7.577a2 2 0 0 0-1-1.732z"/>
+          </svg>
+          Home
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24">
+            <path d="M10.533 1.279c-5.18 0-9.407 4.14-9.407 9.279s4.226 9.279 9.407 9.279
+                     c2.234 0 4.29-.77 5.907-2.058l4.353 4.353a1 1 0 1 0 1.414-1.414
+                     l-4.344-4.344a9.157 9.157 0 0 0 2.077-5.816c0-5.14-4.226-9.28-9.407-9.28
+                     zm-7.407 9.279c0-4.006 3.302-7.28 7.407-7.28s7.407 3.274 7.407 7.28
+                     -3.302 7.279-7.407 7.279-7.407-3.273-7.407-7.28z"/>
+          </svg>
+          Search
+        </li>
+      </ul>
+
+      <!-- Library heading -->
+      <div class="lib-head">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z
+                   M15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1
+                   V6.464a1 1 0 0 0-.5-.866z
+                   M9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"/>
+        </svg>
+        Your Library
+      </div>
+    </div>
+
+    <!-- Scrollable song list — populated by script.js -->
+    <div class="sb-scroll">
+      <ul id="songListUL"></ul>
+    </div>
+
+    <!-- Footer links -->
+    <div class="sb-foot">
+      <a href="#">Legal</a> &nbsp;·&nbsp;
+      <a href="#">Privacy</a> &nbsp;·&nbsp;
+      <a href="#">Cookies</a> &nbsp;·&nbsp;
+      <a href="#">About Ads</a> &nbsp;·&nbsp;
+      <a href="#">Accessibility</a>
+    </div>
+
+  </aside><!-- /sidebar -->
+
+  <!-- ══════ MAIN PANEL ══════ -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="tb-left">
+
+        <!-- Hamburger (mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Open sidebar">
+          <svg viewBox="0 0 24 24" width="18" height="18"
+               fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round">
+            <line x1="3"  y1="6"  x2="21" y2="6"/>
+            <line x1="3"  y1="12" x2="21" y2="12"/>
+            <line x1="3"  y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+
+        <!-- Back / Forward arrows -->
+        <div class="arrows">
+          <button aria-label="Go back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <button aria-label="Go forward">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <div class="seperation">Reasons to join</div>
-      
-      <div class="Reasons">
-        <div class="r1">Enjoy on your TV
-          <div class="r1-cont">Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more
-            <img src="asset/icon_1.png">
-            
-          </div>
-        </div>
-        <div class="r2">Download your shows to watch offline
-          <div class="r2-cont">Save your favourites easily and always have something to watch.
-            <img src="asset/icon_2.png">
-          </div>
-        </div>
-        <div class="r3">&nbsp; Watch &nbsp;&nbsp;Everywhere
-          <div class="r3-cont">Stream unlimited movies and TV shows on your phone, tablet, laptop and TV.
-            <img src="asset/icon_3.png">
-          </div>
-        </div>
-        <div class="r4">Create profiles for kids
-          <div class="r4-cont">Send kids on adventures with their favourite characters in a space made just for them — free with your membership
-            <img src="asset/reason_icon_4.png">
-          </div>
-        </div>
+      <div class="tb-right">
+        <button class="btn-ghost">Sign up</button>
+        <button class="btn-solid">Log in</button>
+      </div>
+    </div><!-- /topbar -->
+
+    <!-- Scrollable content -->
+    <div class="content">
+
+      <!-- Greeting — text updated by script.js based on time of day -->
+      <div class="greet" id="greet">Good evening</div>
+
+      <!-- Quick picks — populated by script.js -->
+      <div class="qgrid" id="qgrid"></div>
+
+      <!-- Featured Playlists -->
+      <div class="sec-head">
+        <h2>Featured Playlists</h2>
+        <a href="#">See all</a>
       </div>
 
-      <div class="seperation2">Frequently Asked Questions</div>
+      <div class="agrid">
 
-      <div class="FAQbox">
-      <div class="boxes">What is Netflix?
-        <svg class="plus-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
+        <!-- Card 1 -->
+        <div class="acard">
+          <div class="acard-art">
+            <div class="acard-ph" style="background: linear-gradient(135deg, #091e2a, #0d3040)">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4
+                         s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+            </div>
+            <div class="acard-play">
+              <svg viewBox="0 0 24 24"><path d="M5 20V4L19 12Z"/></svg>
+            </div>
+          </div>
+          <span class="tag">Lo-Fi</span>
+          <h3>Late Night Chill</h3>
+          <p>Beats to wind down</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="acard">
+          <div class="acard-art">
+            <img
+              src="https://i.scdn.co/image/ab6775700000ee85fb313c4628ea97f5a01939be"
+              alt="Richard Ashcroft"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+            />
+            <div class="acard-ph"
+                 style="background: linear-gradient(135deg, #1a0d2e, #2e1860); display: none">
+              <svg viewBox="0 0 24 24"><path d="M9 3L5 6.99h3V14h2V6.99h3z"/></svg>
+            </div>
+            <div class="acard-play">
+              <svg viewBox="0 0 24 24"><path d="M5 20V4L19 12Z"/></svg>
+            </div>
+          </div>
+          <span class="tag">Rock</span>
+          <h3>Richard Ashcroft</h3>
+          <p>The Verve · Classic</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="acard">
+          <div class="acard-art">
+            <div class="acard-ph" style="background: linear-gradient(135deg, #1a1400, #2e2400)">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"/>
+              </svg>
+            </div>
+            <div class="acard-play">
+              <svg viewBox="0 0 24 24"><path d="M5 20V4L19 12Z"/></svg>
+            </div>
+          </div>
+          <span class="tag">Focus</span>
+          <h3>Deep Work</h3>
+          <p>Concentration mode on</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="acard">
+          <div class="acard-art">
+            <div class="acard-ph" style="background: linear-gradient(135deg, #001a14, #002a1e)">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16
+                         c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z
+                         m-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+            </div>
+            <div class="acard-play">
+              <svg viewBox="0 0 24 24"><path d="M5 20V4L19 12Z"/></svg>
+            </div>
+          </div>
+          <span class="tag">New</span>
+          <h3>Discover Weekly</h3>
+          <p>Your personal mix</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="acard">
+          <div class="acard-art">
+            <div class="acard-ph" style="background: linear-gradient(135deg, #1e0800, #300e00)">
+              <svg viewBox="0 0 24 24">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12
+                         S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z
+                         m3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5z
+                         m-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11z
+                         m3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+              </svg>
+            </div>
+            <div class="acard-play">
+              <svg viewBox="0 0 24 24"><path d="M5 20V4L19 12Z"/></svg>
+            </div>
+          </div>
+          <span class="tag">Vibes</span>
+          <h3>Mood Boost</h3>
+          <p>Feel-good anthems</p>
+        </div>
+
+      </div><!-- /agrid -->
+    </div><!-- /content -->
+  </main><!-- /main -->
+
+</div><!-- /app -->
+
+<!-- ════════════════════════════════════════
+     PLAYBAR (fixed at bottom)
+     ════════════════════════════════════════ -->
+<div class="playbar">
+
+  <!-- Now Playing info -->
+  <div class="pb-now">
+    <div class="pb-art" id="pbArt">
+      <svg viewBox="0 0 24 24" fill="none"
+           stroke="var(--text-dim)" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="6.5" cy="18.5" r="3.5"/>
+        <circle cx="18" cy="16" r="3"/>
+        <path d="M10 18.5V7c0-.923.263-1.385.263-1.672
+                 C10.527 5.041 12 4.916 12 4.916
+                 c4.022-.344 6.909-1.656 8.355-2.506
+                 C21 2.236 21 2.432 21 2.766V16
+                 M10 10c5.867 0 9.778-2.333 11-3"/>
+      </svg>
+    </div>
+    <div class="pb-meta">
+      <div class="pb-track" id="pbTrack">Nothing playing</div>
+      <div class="pb-artist" id="pbArtist">—</div>
+    </div>
+  </div>
+
+  <!-- Transport controls + seekbar -->
+  <div class="pb-mid">
+    <div class="pb-btns">
+
+      <!-- Previous — prevsong.svg -->
+      <button class="ib" id="btnPrev" aria-label="Previous track">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 19V5L8 12L20 19Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M4 4V20" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+
+      <!-- Play / Pause — play.svg / pause.svg -->
+      <button class="ib ib-play" id="btnPlay" aria-label="Play or pause">
+        <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 20V4L19 12L5 20Z" fill="none" stroke="#061012" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Next — nextsong.svg -->
+      <button class="ib" id="btnNext" aria-label="Next track">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 19V5L16 12L4 19Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M20 4V20" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Seekbar -->
+    <div class="seek-row">
+      <span class="t" id="tCur">0:00</span>
+      <div class="seek-bar" id="seekBar">
+        <div class="seek-prog" id="seekProg">
+          <div class="seek-dot"></div>
+        </div>
       </div>
-      <div class="boxes">How much does Netflix Cost?
-        <svg class="plus-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-      </div>
-      <div class="boxes">Where can I watch?
-        <svg class="plus-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-      </div>
-      <div class="boxes">How do I cancel?
-        <svg class="plus-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-      </div>
-      <div class="boxes">What can I watch on Netflix?
-        <svg class="plus-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-      </div>
-      <div class="boxes">Is Netflix good for kids?
-        <svg class="plus-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-      </div>
-     </div>
-     </div>     
-  </body>
+      <span class="t" id="tDur">0:00</span>
+    </div>
+  </div>
+
+  <!-- Volume control -->
+  <div class="pb-vol">
+    <button class="ib" style="width:28px; height:28px" aria-label="Volume">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+        <path d="M13.9998 4H14.7498C14.7498 3.72564 14.6 3.47317 14.3592 3.34171
+                 C14.1183 3.21024 13.825 3.22076 13.5942 3.36913L13.9998 4Z
+                 M13.9998 20L13.5942 20.6309C13.825 20.7792 14.1183 20.7898
+                 14.3592 20.6583C14.6 20.5268 14.7498 20.2744 14.7498 20H13.9998Z
+                 M2.00049 8.5V7.75C1.58627 7.75 1.25049 8.08579 1.25049 8.5H2.00049Z
+                 M2.00049 15.5H1.25049C1.25049 15.9142 1.58627 16.25 2.00049 16.25V15.5Z
+                 M7.00049 8.5V9.25H7.22078L7.40609 9.13087L7.00049 8.5Z
+                 M7.00049 15.5L7.40609 14.8691L7.22078 14.75H7.00049V15.5Z
+                 M13.2498 4V20H14.7498V4H13.2498Z
+                 M1.25049 8.5V15.5H2.75049V8.5H1.25049Z
+                 M2.00049 9.25H7.00049V7.75H2.00049V9.25Z
+                 M2.00049 16.25H7.00049V14.75H2.00049V16.25Z
+                 M7.40609 9.13087L14.4054 4.63087L13.5942 3.36913L6.59489 7.86913L7.40609 9.13087Z
+                 M6.59489 16.1309L13.5942 20.6309L14.4054 19.3691L7.40609 14.8691L6.59489 16.1309Z"/>
+        <path d="M17 9c.625.82 1 1.863 1 3s-.375 2.18-1 3"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M20 7c1.251 1.366 2 3.106 2 5s-.749 3.634-2 5"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </button>
+    <div class="vol-track">
+      <div class="vol-prog" id="volProg"></div>
+      <input type="range" class="vol-in" id="volIn" min="0" max="100" value="70"
+             aria-label="Volume"/>
+    </div>
+  </div>
+
+</div><!-- /playbar -->
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+</body>
 </html>
